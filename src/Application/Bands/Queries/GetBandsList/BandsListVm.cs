@@ -4,6 +4,6 @@ namespace Application.Bands.Queries.GetBandsList
 {
     public class BandsListVm
     {
-        public IList<BandDto> Bands { get; set; }
+        public IList<BandDto> Bands { get; set; } = new List<BandDto>();
     }
 }

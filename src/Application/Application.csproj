@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Cafes\Commands\" />
-    <Folder Include="Cafes\Queries\" />
   </ItemGroup>
 
   <PropertyGroup>

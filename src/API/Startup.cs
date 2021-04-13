@@ -1,3 +1,4 @@
+using API.Middlewares;
 using API.Services;
 using Application;
 using Application.Common.Interfaces;
@@ -68,6 +69,8 @@ namespace API
                     c.SwaggerEndpoint("v1/swagger.json", "My API V1");
                 });
             }
+
+            app.UseCustomExceptionHandler();
 
             app.UseRouting();
 

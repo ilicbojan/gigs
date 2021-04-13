@@ -1,4 +1,5 @@
-﻿using Application.Gigs.Queries.GetGigById;
+﻿using Application.Gigs.Commands.CreateGig;
+using Application.Gigs.Queries.GetGigById;
 using Application.Gigs.Queries.GetGigsList;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,12 @@ namespace API.Controllers
         public async Task<ActionResult<GigVm>> Get(int id)
         {
             return await Mediator.Send(new GetGigByIdQuery { Id = id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(CreateGigCommand command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }

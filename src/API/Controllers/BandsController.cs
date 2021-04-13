@@ -1,4 +1,5 @@
 ﻿using Application.Bands.Commands.CreateBand;
+using Application.Bands.Commands.DeleteBand;
 using Application.Bands.Commands.UpdateBand;
 using Application.Bands.Queries.GetBandById;
 using Application.Bands.Queries.GetBandsList;
@@ -34,6 +35,12 @@ namespace API.Controllers
             command.Id = id;
 
             return await Mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(int id)
+        {
+            return await Mediator.Send(new DeleteBandCommand { Id = id });
         }
     }
 }

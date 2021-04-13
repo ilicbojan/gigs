@@ -1,4 +1,5 @@
-﻿using Application.Bands.Queries.GetBandById;
+﻿using Application.Bands.Commands.CreateBand;
+using Application.Bands.Queries.GetBandById;
 using Application.Bands.Queries.GetBandsList;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,12 @@ namespace API.Controllers
         public async Task<ActionResult<BandVm>> Get(int id)
         {
             return await Mediator.Send(new GetBandByIdQuery { Id = id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(CreateBandCommand command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Gigs.Commands.CreateGig;
+using Application.Gigs.Commands.DeleteGig;
 using Application.Gigs.Commands.UpdateGig;
 using Application.Gigs.Queries.GetGigById;
 using Application.Gigs.Queries.GetGigsList;
@@ -34,6 +35,12 @@ namespace API.Controllers
             command.Id = id;
 
             return await Mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(int id)
+        {
+            return await Mediator.Send(new DeleteGigCommand { Id = id });
         }
     }
 }

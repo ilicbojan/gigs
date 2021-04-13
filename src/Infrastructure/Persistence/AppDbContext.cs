@@ -15,6 +15,7 @@ namespace Infrastructure.Persistence
         }
 
         public DbSet<Band> Bands { get; set; }
+        public DbSet<Cafe> Cafes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -58,6 +58,21 @@ namespace Infrastructure.Persistence
                 };
 
                 context.Bands.AddRange(bands);
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.Cafes.Any())
+            {
+                var cafes = new List<Cafe>
+                {
+                    new Cafe { Name = "Tramvaj Pub", City = "Belgrade", Address = "Ruzveltova 2", Email = "tramvaj@test.com", Phone = "+381616548521" },
+                    new Cafe { Name = "Cigla & Krigla", City = "Belgrade", Address = "Dalmatinska 44", Email = "cigla@test.com", Phone = "+381659645236" },
+                    new Cafe { Name = "Irish Pub", City = "Novi Sad", Address = "Zmaj Jovina 28", Email = "irish@test.com", Phone = "+381648754623" }
+                };
+
+                context.Cafes.AddRange(cafes);
+
                 await context.SaveChangesAsync();
             }
         }

@@ -12,6 +12,11 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cafes\Commands\" />
+    <Folder Include="Cafes\Queries\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>8.0</LangVersion>

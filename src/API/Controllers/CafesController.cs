@@ -1,4 +1,5 @@
 ﻿using Application.Cafes.Commands.CreateCafe;
+using Application.Cafes.Commands.DeleteCafe;
 using Application.Cafes.Commands.UpdateCafe;
 using Application.Cafes.Queries.GetCafeById;
 using Application.Cafes.Queries.GetCafesList;
@@ -34,6 +35,12 @@ namespace API.Controllers
             command.Id = id;
 
             return await Mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(int id)
+        {
+            return await Mediator.Send(new DeleteCafeCommand { Id = id });
         }
     }
 }

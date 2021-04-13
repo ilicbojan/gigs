@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Gigs\Commands\" />
-    <Folder Include="Gigs\Queries\" />
   </ItemGroup>
 
   <PropertyGroup>

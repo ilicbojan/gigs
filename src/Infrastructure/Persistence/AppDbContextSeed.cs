@@ -47,6 +47,19 @@ namespace Infrastructure.Persistence
                     await userManager.AddToRoleAsync(user, RoleEnum.Admin);
                 }
             }
+
+            if (!context.Bands.Any())
+            {
+                var bands = new List<Band>
+                {
+                    new Band { Name = "Pink Floyd", Members = "David Gilmour, Roger Waters, Syd Berrett", Genre = "Progressive Rock", Email = "pink.floyd@test.com", Phone = "+381652315847" },
+                    new Band { Name = "Tool", Members = "Adam Jones, Danny Carey, James Keenan", Genre = "Progressive Metal", Email = "tool@test.com", Phone = "+381648521463" },
+                    new Band { Name = "Metallica", Members = "James Hetfield, Lars Urlich, Kirk Hammet", Genre = "Heavy Metal", Email = "metallica@test.com", Phone = "+381652365129" }
+                };
+
+                context.Bands.AddRange(bands);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

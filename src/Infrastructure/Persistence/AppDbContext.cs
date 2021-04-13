@@ -14,6 +14,8 @@ namespace Infrastructure.Persistence
 
         }
 
+        public DbSet<Band> Bands { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

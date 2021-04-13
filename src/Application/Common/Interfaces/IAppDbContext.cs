@@ -10,6 +10,7 @@ namespace Application.Common.Interfaces
         DbSet<AppUser> Users { get; set; }
         DbSet<Band> Bands { get; set; }
         DbSet<Cafe> Cafes { get; set; }
+        DbSet<Gig> Gigs { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

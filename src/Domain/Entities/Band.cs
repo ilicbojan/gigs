@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class Band
     {
@@ -8,5 +10,7 @@
         public string Genre { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public virtual ICollection<Gig> Gigs { get; set; }
     }
 }

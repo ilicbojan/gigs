@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -72,6 +73,40 @@ namespace Infrastructure.Persistence
                 };
 
                 context.Cafes.AddRange(cafes);
+
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.Gigs.Any())
+            {
+                var gigs = new List<Gig>();
+
+                var bands = context.Bands
+                    .OrderBy(x => x.Id)
+                    .Take(3)
+                    .ToList();
+
+                var cafes = context.Cafes
+                    .OrderBy(x => x.Id)
+                    .Take(3)
+                    .ToList();
+
+                var date = DateTime.Parse("10/06/2021");
+                var time = TimeSpan.Parse("19:00:00");
+
+                foreach (var band in bands)
+                {
+                    foreach (var cafe in cafes)
+                    {
+                        gigs.Add(new Gig { Date = date, Time = time, BandId = band.Id, CafeId = cafe.Id });
+
+
+                        date = date.AddDays(1);
+                        time = time + TimeSpan.FromMinutes(30);
+                    }
+                }
+
+                context.Gigs.AddRange(gigs);
 
                 await context.SaveChangesAsync();
             }

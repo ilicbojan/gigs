@@ -1,6 +1,8 @@
 ﻿using Application.Bands.Commands.CreateBand;
+using Application.Bands.Commands.UpdateBand;
 using Application.Bands.Queries.GetBandById;
 using Application.Bands.Queries.GetBandsList;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -23,6 +25,14 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Create(CreateBandCommand command)
         {
+            return await Mediator.Send(command);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Update(int id, UpdateBandCommand command)
+        {
+            command.Id = id;
+
             return await Mediator.Send(command);
         }
     }

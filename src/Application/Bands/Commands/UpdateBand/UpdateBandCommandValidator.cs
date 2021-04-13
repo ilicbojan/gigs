@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace Application.Bands.Commands.CreateBand
+namespace Application.Bands.Commands.UpdateBand
 {
-    public class CreateBandCommandValidator : AbstractValidator<CreateBandCommand>
+    public class UpdateBandCommandValidator : AbstractValidator<UpdateBandCommand>
     {
-        public CreateBandCommandValidator()
+        public UpdateBandCommandValidator()
         {
             RuleFor(x => x.Name)
                 .MaximumLength(50).WithMessage("Name cannot be longer than 50 characters")

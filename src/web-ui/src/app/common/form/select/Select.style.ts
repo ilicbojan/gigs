@@ -10,8 +10,8 @@ const Select = styled.select<IProps>`
   font-size: 1.6rem;
   padding: 10px;
   outline: none;
-  background-color: ${COLOR.gray3};
-  border: 1px solid ${COLOR.gray3};
+  background-color: ${COLOR.white};
+  border: 1px solid ${COLOR.white};
   border-radius: ${utilities.borderRadius};
   box-shadow: ${utilities.shadow};
 
@@ -24,8 +24,8 @@ const Select = styled.select<IProps>`
 
   &:disabled,
   &[disabled] {
-    background-color: ${COLOR.gray1};
-    border: 1px solid ${COLOR.gray1};
+    background-color: ${COLOR.grayLight};
+    border: 1px solid ${COLOR.grayLight};
   }
 `;
 

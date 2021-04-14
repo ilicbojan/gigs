@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { toast } from 'react-toastify';
+import { history } from '../..';
 import agent from '../api/agent';
 import { IGig } from '../models/gig';
 import { RootStore } from './rootStore';
@@ -62,5 +64,22 @@ export default class GigStore {
 
   getGig = (id: number): IGig => {
     return this.gigRegistry.get(id);
+  };
+
+  createGig = async (gig: IGig) => {
+    this.submitting = true;
+    try {
+      gig.id = await agent.Gigs.create(gig);
+      runInAction(() => {
+        this.submitting = false;
+      });
+      history.push('/');
+      toast.success('Gig created successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
   };
 }

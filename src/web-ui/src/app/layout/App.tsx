@@ -12,6 +12,7 @@ import CafesList from '../../features/cafes/list/CafesList';
 import CafeDetails from '../../features/cafes/details/CafeDetails';
 import BandCreate from '../../features/bands/create/BandCreate';
 import CafeCreate from '../../features/cafes/create/CafeCreate';
+import GigCreate from '../../features/gigs/create/GigCreate';
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -38,6 +39,7 @@ const App = observer(() => {
           render={() => (
             <>
               <Switch>
+                <Route exact path='/gigs/create' component={GigCreate} />
                 <Route exact path='/gigs/:id' component={GigDetails} />
 
                 <Route exact path='/bands' component={BandsList} />

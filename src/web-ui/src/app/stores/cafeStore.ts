@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { toast } from 'react-toastify';
+import { history } from '../..';
 import agent from '../api/agent';
 import { ICafe } from '../models/cafe';
 import { RootStore } from './rootStore';
@@ -62,5 +64,23 @@ export default class CafeStore {
 
   getCafe = (id: number): ICafe => {
     return this.cafeRegistry.get(id);
+  };
+
+  createCafe = async (cafe: ICafe) => {
+    this.submitting = true;
+    try {
+      cafe.id = await agent.Cafes.create(cafe);
+      runInAction(() => {
+        this.cafeRegistry.set(cafe.id, cafe);
+        this.submitting = false;
+      });
+      history.push('/cafes');
+      toast.success('Cafe created successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
   };
 }

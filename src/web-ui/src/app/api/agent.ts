@@ -4,6 +4,7 @@ import { history } from '../..';
 import { IBand, IBandsListVm } from '../models/band';
 import { ICafe, ICafesListVm } from '../models/cafe';
 import { IGig, IGigsListVm } from '../models/gig';
+import { IUser, IUserFormValues } from '../models/user';
 
 axios.defaults.baseURL = 'http://localhost:5000/api';
 
@@ -22,7 +23,7 @@ axios.interceptors.response.use(undefined, (error) => {
   if (error.message === 'Network Error' && !error.response) {
     toast.error('Network error - make sure API is running!');
   }
-  const { status, data, config, headers } = error.response;
+  const { status, headers } = error.response;
   if (status === 404) {
     history.push('/notfound');
   }
@@ -34,13 +35,6 @@ axios.interceptors.response.use(undefined, (error) => {
     history.push('/');
     toast.info('Your session has expired, please login again');
   }
-  if (
-    status === 400 &&
-    config.method === 'get' &&
-    data.errors.hasOwnProperty('id')
-  ) {
-    history.push('/notfound');
-  }
   if (status === 500) {
     toast.error('Server error - check the terminal for more info!');
   }
@@ -49,19 +43,11 @@ axios.interceptors.response.use(undefined, (error) => {
 
 const responseBody = (response: AxiosResponse) => response.data;
 
-// slow communication with API, use just in DEVELOPMENT
-const sleep = (ms: number) => (response: AxiosResponse) =>
-  new Promise<AxiosResponse>((resolve) =>
-    setTimeout(() => resolve(response), ms)
-  );
-
 const requests = {
-  get: (url: string) => axios.get(url).then(sleep(1000)).then(responseBody),
-  post: (url: string, body: {}) =>
-    axios.post(url, body).then(sleep(1000)).then(responseBody),
-  put: (url: string, body: {}) =>
-    axios.put(url, body).then(sleep(1000)).then(responseBody),
-  del: (url: string) => axios.delete(url).then(sleep(1000)).then(responseBody),
+  get: (url: string) => axios.get(url).then(responseBody),
+  post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
+  put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
+  del: (url: string) => axios.delete(url).then(responseBody),
 };
 
 const Bands = {
@@ -88,8 +74,17 @@ const Gigs = {
   delete: (id: number) => requests.del(`/gigs/${id}`),
 };
 
+const Users = {
+  current: (): Promise<IUser> => requests.get('/users/current'),
+  login: (user: IUserFormValues): Promise<IUser> =>
+    requests.post(`/users/login`, user),
+  register: (user: IUserFormValues): Promise<IUser> =>
+    requests.post(`/users/register`, user),
+};
+
 export default {
   Bands,
   Cafes,
   Gigs,
+  Users,
 };

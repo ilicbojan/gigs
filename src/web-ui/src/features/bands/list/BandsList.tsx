@@ -9,6 +9,7 @@ import { S } from './BandsList.style';
 
 const BandsList = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const { loadBands, loadingBands, bands } = rootStore.bandStore;
 
   useEffect(() => {
@@ -19,9 +20,11 @@ const BandsList = observer(() => {
     <S.BandsList>
       <div className='heading'>
         <h1>Bands List</h1>
-        <Link to='/bands/create'>
-          <Button color='primary'>Create new</Button>
-        </Link>
+        {isLoggedIn && (
+          <Link to='/bands/create'>
+            <Button color='primary'>Create new</Button>
+          </Link>
+        )}
       </div>
       <S.List>
         {loadingBands ? (

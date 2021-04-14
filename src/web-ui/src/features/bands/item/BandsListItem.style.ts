@@ -10,6 +10,7 @@ const BandsListItem = styled.div`
   .body {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 
     img {
       width: 40%;
@@ -31,7 +32,6 @@ const BandsListItem = styled.div`
   .buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
 
     button {
       font-size: 1.4rem;

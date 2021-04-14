@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useParams } from 'react-router';
 import Button from '../../../app/common/button/Button';
+import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import { required } from '../../../app/common/util/validation';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
@@ -16,7 +17,13 @@ interface IParams {
 
 const BandEdit = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { loadBand, loadingBands, updateBand, band } = rootStore.bandStore;
+  const {
+    loadBand,
+    loadingBands,
+    updateBand,
+    band,
+    error,
+  } = rootStore.bandStore;
 
   const { id } = useParams<IParams>();
   const bandId = Number.parseInt(id);
@@ -82,6 +89,7 @@ const BandEdit = observer(() => {
               validate={required}
               component={Input}
             />
+            {error && <ErrorMessage error={error} />}
 
             <Button
               disabled={submitting}

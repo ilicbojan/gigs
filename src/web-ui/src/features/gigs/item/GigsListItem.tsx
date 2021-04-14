@@ -13,6 +13,7 @@ interface IProps {
 
 const GigsListItem: React.FC<IProps> = observer(({ gig }) => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const { deleteGig, submitting, target } = rootStore.gigStore;
 
   return (
@@ -31,22 +32,30 @@ const GigsListItem: React.FC<IProps> = observer(({ gig }) => {
           </div>
         </div>
       </div>
-      <div className='buttons'>
+      {isLoggedIn ? (
+        <div className='buttons'>
+          <Link to={`/gigs/${gig.id}`}>
+            <Button color='secondary'>View</Button>
+          </Link>
+          <Link to={`/gigs/edit/${gig.id}`}>
+            <Button color='primary'>Edit</Button>
+          </Link>
+          <Button
+            title={gig.id + ''}
+            onClick={(e) => deleteGig(gig.id, e)}
+            loading={submitting && gig.id === Number(target)}
+            color='red'
+          >
+            Delete
+          </Button>
+        </div>
+      ) : (
         <Link to={`/gigs/${gig.id}`}>
-          <Button color='secondary'>View</Button>
+          <Button color='secondary' block>
+            View
+          </Button>
         </Link>
-        <Link to={`/gigs/edit/${gig.id}`}>
-          <Button color='primary'>Edit</Button>
-        </Link>
-        <Button
-          title={gig.id + ''}
-          onClick={(e) => deleteGig(gig.id, e)}
-          loading={submitting && gig.id === Number(target)}
-          color='red'
-        >
-          Delete
-        </Button>
-      </div>
+      )}
     </S.GigsListItem>
   );
 });

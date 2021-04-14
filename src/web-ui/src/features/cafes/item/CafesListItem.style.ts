@@ -35,6 +35,10 @@ const CafesListItem = styled.div`
       padding: 20px;
     }
   }
+
+  .btn {
+    margin: 15px;
+  }
 `;
 
 export const S = {

@@ -14,6 +14,7 @@ interface IParams {
 
 const GigDetails = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const {
     loadGig,
     loadingGigs,
@@ -43,19 +44,21 @@ const GigDetails = observer(() => {
         <div>Cafe: {gig.cafe.name}</div>
         <div>City: {gig.cafe.city}</div>
         <div>Address: {gig.cafe.address}</div>
-        <div className='buttons'>
-          <Link to={`/gigs/edit/${gig.id}`}>
-            <Button color='primary'>Edit</Button>
-          </Link>
-          <Button
-            title={gig.id + ''}
-            onClick={(e) => deleteGig(gig.id, e)}
-            loading={submitting && gig.id === Number(target)}
-            color='red'
-          >
-            Delete
-          </Button>
-        </div>
+        {isLoggedIn && (
+          <div className='buttons'>
+            <Link to={`/gigs/edit/${gig.id}`}>
+              <Button color='primary'>Edit</Button>
+            </Link>
+            <Button
+              title={gig.id + ''}
+              onClick={(e) => deleteGig(gig.id, e)}
+              loading={submitting && gig.id === Number(target)}
+              color='red'
+            >
+              Delete
+            </Button>
+          </div>
+        )}
       </div>
     </S.GigDetails>
   );

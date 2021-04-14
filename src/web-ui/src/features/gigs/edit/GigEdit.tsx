@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import Button from '../../../app/common/button/Button';
+import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import Select from '../../../app/common/form/select/Select';
 import { getDate } from '../../../app/common/util/dates';
@@ -20,7 +21,7 @@ const GigEdit = observer(() => {
   const rootStore = useContext(RootStoreContext);
   const { loadBands, loadingBands, bands } = rootStore.bandStore;
   const { loadCafes, loadingCafes, cafes } = rootStore.cafeStore;
-  const { loadGig, loadingGigs, updateGig, gig } = rootStore.gigStore;
+  const { loadGig, loadingGigs, updateGig, gig, error } = rootStore.gigStore;
 
   const { id } = useParams<IParams>();
   const gigId = Number.parseInt(id);
@@ -89,6 +90,7 @@ const GigEdit = observer(() => {
                 </option>
               ))}
             </Field>
+            {error && <ErrorMessage error={error} />}
 
             <Button
               disabled={submitting}

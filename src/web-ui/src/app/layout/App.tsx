@@ -15,21 +15,26 @@ import CafeCreate from '../../features/cafes/create/CafeCreate';
 import GigCreate from '../../features/gigs/create/GigCreate';
 import BandEdit from '../../features/bands/edit/BandEdit';
 import CafeEdit from '../../features/cafes/edit/CafeEdit';
-import GigEdit from '../../features/gigs/edit/GigEdit.';
+import GigEdit from '../../features/gigs/edit/GigEdit';
+import Login from '../../features/users/login/Login';
+import Register from '../../features/users/register/Register';
+import LoadingSpinner from './spinner/LoadingSpinner';
+import PrivateRoute from './PrivateRoute';
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { currentUser } = rootStore.userStore;
   const { token, setAppLoaded, appLoaded } = rootStore.commonStore;
 
   useEffect(() => {
     if (token) {
-      //currentUser().finally(() => setAppLoaded());
+      currentUser().finally(() => setAppLoaded());
     } else {
       setAppLoaded();
     }
   }, [token, setAppLoaded]);
 
-  //if (!appLoaded) return <LoadingSpinner />;
+  if (!appLoaded) return <LoadingSpinner />;
 
   return (
     <>
@@ -42,19 +47,38 @@ const App = observer(() => {
           render={() => (
             <>
               <Switch>
-                <Route exact path='/gigs/create' component={GigCreate} />
+                <PrivateRoute exact path='/gigs/create' component={GigCreate} />
                 <Route exact path='/gigs/:id' component={GigDetails} />
-                <Route exact path='/gigs/edit/:id' component={GigEdit} />
+                <PrivateRoute exact path='/gigs/edit/:id' component={GigEdit} />
 
                 <Route exact path='/bands' component={BandsList} />
-                <Route exact path='/bands/create' component={BandCreate} />
+                <PrivateRoute
+                  exact
+                  path='/bands/create'
+                  component={BandCreate}
+                />
                 <Route exact path='/bands/:id' component={BandDetails} />
-                <Route exact path='/bands/edit/:id' component={BandEdit} />
+                <PrivateRoute
+                  exact
+                  path='/bands/edit/:id'
+                  component={BandEdit}
+                />
 
                 <Route exact path='/cafes' component={CafesList} />
-                <Route exact path='/cafes/create' component={CafeCreate} />
+                <PrivateRoute
+                  exact
+                  path='/cafes/create'
+                  component={CafeCreate}
+                />
                 <Route exact path='/cafes/:id' component={CafeDetails} />
-                <Route exact path='/cafes/edit/:id' component={CafeEdit} />
+                <PrivateRoute
+                  exact
+                  path='/cafes/edit/:id'
+                  component={CafeEdit}
+                />
+
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/register' component={Register} />
               </Switch>
             </>
           )}

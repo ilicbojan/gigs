@@ -5,45 +5,21 @@ import Button from '../../../app/common/button/Button';
 import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import { required } from '../../../app/common/util/validation';
-import { IBand } from '../../../app/models/band';
+import { IUserFormValues } from '../../../app/models/user';
 import { RootStoreContext } from '../../../app/stores/rootStore';
-import { S } from './BandCreate.style';
+import { S } from './Login.style';
 
-const BandCreate = observer(() => {
+const Login = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { createBand, error } = rootStore.bandStore;
+  const { login, error } = rootStore.userStore;
 
   return (
-    <S.BandCreate>
-      <h1>Create Band</h1>
+    <S.Login>
+      <h1>Login</h1>
       <Form
-        onSubmit={(band: IBand) => createBand(band)}
+        onSubmit={(user: IUserFormValues) => login(user)}
         render={({ handleSubmit, submitting }) => (
           <form onSubmit={handleSubmit}>
-            <Field
-              name='name'
-              type='text'
-              label='Name'
-              block
-              validate={required}
-              component={Input}
-            />
-            <Field
-              name='members'
-              type='text'
-              label='Members'
-              block
-              validate={required}
-              component={Input}
-            />
-            <Field
-              name='genre'
-              type='text'
-              label='Genre'
-              block
-              validate={required}
-              component={Input}
-            />
             <Field
               name='email'
               type='email'
@@ -53,9 +29,9 @@ const BandCreate = observer(() => {
               component={Input}
             />
             <Field
-              name='phone'
-              type='text'
-              label='Phone number'
+              name='password'
+              type='password'
+              label='Password'
               block
               validate={required}
               component={Input}
@@ -68,13 +44,13 @@ const BandCreate = observer(() => {
               color='secondary'
               block
             >
-              Create
+              Login
             </Button>
           </form>
         )}
       ></Form>
-    </S.BandCreate>
+    </S.Login>
   );
 });
 
-export default BandCreate;
+export default Login;

@@ -13,6 +13,7 @@ interface IParams {
 
 const CafeDetails = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const {
     loadCafe,
     loadingCafes,
@@ -40,19 +41,21 @@ const CafeDetails = observer(() => {
         <div>Address: {cafe.address}</div>
         <div>Email: {cafe.email}</div>
         <div>Phone: {cafe.phone}</div>
-        <div className='buttons'>
-          <Link to={`/cafes/edit/${cafe.id}`}>
-            <Button color='primary'>Edit</Button>
-          </Link>
-          <Button
-            title={cafe.id + ''}
-            onClick={(e) => deleteCafe(cafe.id, e)}
-            loading={submitting && cafe.id === Number(target)}
-            color='red'
-          >
-            Delete
-          </Button>
-        </div>
+        {isLoggedIn && (
+          <div className='buttons'>
+            <Link to={`/cafes/edit/${cafe.id}`}>
+              <Button color='primary'>Edit</Button>
+            </Link>
+            <Button
+              title={cafe.id + ''}
+              onClick={(e) => deleteCafe(cafe.id, e)}
+              loading={submitting && cafe.id === Number(target)}
+              color='red'
+            >
+              Delete
+            </Button>
+          </div>
+        )}
       </div>
     </S.CafeDetails>
   );

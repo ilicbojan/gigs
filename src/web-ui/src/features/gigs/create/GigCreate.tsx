@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import Button from '../../../app/common/button/Button';
+import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import Select from '../../../app/common/form/select/Select';
 import { required } from '../../../app/common/util/validation';
@@ -13,7 +14,7 @@ const GigCreate = observer(() => {
   const rootStore = useContext(RootStoreContext);
   const { loadBands, loadingBands, bands } = rootStore.bandStore;
   const { loadCafes, loadingCafes, cafes } = rootStore.cafeStore;
-  const { createGig } = rootStore.gigStore;
+  const { createGig, error } = rootStore.gigStore;
 
   useEffect(() => {
     loadBands();
@@ -69,6 +70,7 @@ const GigCreate = observer(() => {
                 </option>
               ))}
             </Field>
+            {error && <ErrorMessage error={error} />}
 
             <Button
               disabled={submitting}

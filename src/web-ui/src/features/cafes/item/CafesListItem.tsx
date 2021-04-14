@@ -12,6 +12,7 @@ interface IProps {
 
 const CafesListItem: React.FC<IProps> = observer(({ cafe }) => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const { deleteCafe, submitting, target } = rootStore.cafeStore;
 
   return (
@@ -25,22 +26,32 @@ const CafesListItem: React.FC<IProps> = observer(({ cafe }) => {
           </div>
         </div>
       </div>
-      <div className='buttons'>
-        <Link to={`/cafes/${cafe.id}`}>
-          <Button color='secondary'>View</Button>
-        </Link>
-        <Link to={`/cafes/edit/${cafe.id}`}>
-          <Button color='primary'>Edit</Button>
-        </Link>
-        <Button
-          title={cafe.id + ''}
-          onClick={(e) => deleteCafe(cafe.id, e)}
-          loading={submitting && cafe.id === Number(target)}
-          color='red'
-        >
-          Delete
-        </Button>
-      </div>
+      {isLoggedIn ? (
+        <div className='buttons'>
+          <Link to={`/cafes/${cafe.id}`}>
+            <Button color='secondary'>View</Button>
+          </Link>
+          <Link to={`/cafes/edit/${cafe.id}`}>
+            <Button color='primary'>Edit</Button>
+          </Link>
+          <Button
+            title={cafe.id + ''}
+            onClick={(e) => deleteCafe(cafe.id, e)}
+            loading={submitting && cafe.id === Number(target)}
+            color='red'
+          >
+            Delete
+          </Button>
+        </div>
+      ) : (
+        <div className='btn'>
+          <Link to={`/cafes/${cafe.id}`}>
+            <Button color='secondary' block>
+              View
+            </Button>
+          </Link>
+        </div>
+      )}
     </S.CafesListItem>
   );
 });

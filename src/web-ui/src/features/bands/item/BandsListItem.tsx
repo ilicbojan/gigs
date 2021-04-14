@@ -12,6 +12,7 @@ interface IProps {
 
 const BandsListItem: React.FC<IProps> = observer(({ band }) => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const { deleteBand, submitting, target } = rootStore.bandStore;
 
   return (
@@ -23,22 +24,30 @@ const BandsListItem: React.FC<IProps> = observer(({ band }) => {
           <div>{band.genre}</div>
         </div>
       </div>
-      <div className='buttons'>
+      {isLoggedIn ? (
+        <div className='buttons'>
+          <Link to={`/bands/${band.id}`}>
+            <Button color='secondary'>View</Button>
+          </Link>
+          <Link to={`/bands/edit/${band.id}`}>
+            <Button color='primary'>Edit</Button>
+          </Link>
+          <Button
+            title={band.id + ''}
+            onClick={(e) => deleteBand(band.id, e)}
+            loading={submitting && band.id === Number(target)}
+            color='red'
+          >
+            Delete
+          </Button>
+        </div>
+      ) : (
         <Link to={`/bands/${band.id}`}>
-          <Button color='secondary'>View</Button>
+          <Button color='secondary' block>
+            View
+          </Button>
         </Link>
-        <Link to={`/bands/edit/${band.id}`}>
-          <Button color='primary'>Edit</Button>
-        </Link>
-        <Button
-          title={band.id + ''}
-          onClick={(e) => deleteBand(band.id, e)}
-          loading={submitting && band.id === Number(target)}
-          color='red'
-        >
-          Delete
-        </Button>
-      </div>
+      )}
     </S.BandsListItem>
   );
 });

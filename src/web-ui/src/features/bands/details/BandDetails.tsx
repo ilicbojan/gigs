@@ -13,6 +13,7 @@ interface IParams {
 
 const BandDetails = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const {
     loadBand,
     loadingBands,
@@ -40,19 +41,21 @@ const BandDetails = observer(() => {
         <div>Genre: {band.genre}</div>
         <div>Email: {band.email}</div>
         <div>Phone: {band.phone}</div>
-        <div className='buttons'>
-          <Link to={`/bands/edit/${band.id}`}>
-            <Button color='primary'>Edit</Button>
-          </Link>
-          <Button
-            title={band.id + ''}
-            onClick={(e) => deleteBand(band.id, e)}
-            loading={submitting && band.id === Number(target)}
-            color='red'
-          >
-            Delete
-          </Button>
-        </div>
+        {isLoggedIn && (
+          <div className='buttons'>
+            <Link to={`/bands/edit/${band.id}`}>
+              <Button color='primary'>Edit</Button>
+            </Link>
+            <Button
+              title={band.id + ''}
+              onClick={(e) => deleteBand(band.id, e)}
+              loading={submitting && band.id === Number(target)}
+              color='red'
+            >
+              Delete
+            </Button>
+          </div>
+        )}
       </div>
     </S.BandDetails>
   );

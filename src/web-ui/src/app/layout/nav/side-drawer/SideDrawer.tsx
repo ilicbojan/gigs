@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { S } from './SideDrawer.style';
 import { observer } from 'mobx-react-lite';
+import { RootStoreContext } from '../../../stores/rootStore';
 
 interface IProps {
   show: boolean;
@@ -9,6 +10,9 @@ interface IProps {
 }
 
 const SideDrawer: React.FC<IProps> = observer(({ show, click }) => {
+  const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn, logout } = rootStore.userStore;
+
   return (
     <S.SideDrawer show={show}>
       <ul>
@@ -21,12 +25,22 @@ const SideDrawer: React.FC<IProps> = observer(({ show, click }) => {
         <li onClick={click}>
           <NavLink to='/cafes'>Cafes</NavLink>
         </li>
-        <li onClick={click}>
-          <NavLink to='/login'>Login</NavLink>
-        </li>
-        <li onClick={click}>
-          <NavLink to='/register'>Register</NavLink>
-        </li>
+        {isLoggedIn ? (
+          <li onClick={click}>
+            <NavLink to='/' onClick={logout}>
+              Logout
+            </NavLink>
+          </li>
+        ) : (
+          <>
+            <li onClick={click}>
+              <NavLink to='/login'>Login</NavLink>
+            </li>
+            <li onClick={click}>
+              <NavLink to='/register'>Register</NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </S.SideDrawer>
   );

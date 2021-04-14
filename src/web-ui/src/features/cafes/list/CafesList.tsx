@@ -9,6 +9,7 @@ import { S } from './CafesList.style';
 
 const CafesList = observer(() => {
   const rootStore = useContext(RootStoreContext);
+  const { isLoggedIn } = rootStore.userStore;
   const { loadCafes, loadingCafes, cafes } = rootStore.cafeStore;
 
   useEffect(() => {
@@ -19,9 +20,11 @@ const CafesList = observer(() => {
     <S.CafesList>
       <div className='heading'>
         <h1>Cafes List</h1>
-        <Link to='/cafes/create'>
-          <Button color='primary'>Create new</Button>
-        </Link>
+        {isLoggedIn && (
+          <Link to='/cafes/create'>
+            <Button color='primary'>Create new</Button>
+          </Link>
+        )}
       </div>
       <S.List>
         {loadingCafes ? (

@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Field, Form } from 'react-final-form';
 import Button from '../../../app/common/button/Button';
+import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import { required } from '../../../app/common/util/validation';
 import { ICafe } from '../../../app/models/cafe';
@@ -10,7 +11,7 @@ import { S } from './CafeCreate.style';
 
 const CafeCreate = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { createCafe } = rootStore.cafeStore;
+  const { createCafe, error } = rootStore.cafeStore;
 
   return (
     <S.CafeCreate>
@@ -59,6 +60,7 @@ const CafeCreate = observer(() => {
               validate={required}
               component={Input}
             />
+            {error && <ErrorMessage error={error} />}
 
             <Button
               disabled={submitting}

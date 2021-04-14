@@ -113,6 +113,8 @@ export default class CafeStore {
       await agent.Cafes.delete(id);
       runInAction(() => {
         this.cafeRegistry.delete(id);
+        this.rootStore.gigStore.gigRegistry.clear();
+        this.rootStore.gigStore.loadGigs();
         this.submitting = false;
         this.target = '';
       });

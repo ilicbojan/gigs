@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import Button from '../../../app/common/button/Button';
+import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
 import Input from '../../../app/common/form/input/Input';
 import { required } from '../../../app/common/util/validation';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
@@ -16,7 +17,13 @@ interface IParams {
 
 const CafeEdit = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { loadCafe, loadingCafes, updateCafe, cafe } = rootStore.cafeStore;
+  const {
+    loadCafe,
+    loadingCafes,
+    updateCafe,
+    cafe,
+    error,
+  } = rootStore.cafeStore;
 
   const { id } = useParams<IParams>();
   const cafeId = Number.parseInt(id);
@@ -82,6 +89,7 @@ const CafeEdit = observer(() => {
               validate={required}
               component={Input}
             />
+            {error && <ErrorMessage error={error} />}
 
             <Button
               disabled={submitting}

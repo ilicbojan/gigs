@@ -114,6 +114,8 @@ export default class BandStore {
       await agent.Bands.delete(id);
       runInAction(() => {
         this.bandRegistry.delete(id);
+        this.rootStore.gigStore.gigRegistry.clear();
+        this.rootStore.gigStore.loadGigs();
         this.submitting = false;
         this.target = '';
       });

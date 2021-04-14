@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import Button from '../../../app/common/button/Button';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';

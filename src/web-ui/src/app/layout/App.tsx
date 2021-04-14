@@ -7,6 +7,7 @@ import Nav from './nav/navigation/Nav';
 import GigsList from '../../features/gigs/list/GigsList';
 import GigDetails from '../../features/gigs/details/GigDetails';
 import BandsList from '../../features/bands/list/BandsList';
+import BandDetails from '../../features/bands/details/BandDetails';
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -36,6 +37,7 @@ const App = observer(() => {
                 <Route exact path='/gigs/:id' component={GigDetails} />
 
                 <Route exact path='/bands' component={BandsList} />
+                <Route exact path='/bands/:id' component={BandDetails} />
               </Switch>
             </>
           )}

@@ -38,4 +38,29 @@ export default class BandStore {
       });
     }
   };
+
+  loadBand = async (id: number) => {
+    let band = this.getBand(id);
+    if (band) {
+      this.band = band;
+    } else {
+      this.loadingBands = true;
+      try {
+        band = await agent.Bands.details(id);
+        runInAction(() => {
+          this.bandRegistry.set(band.id, band);
+          this.band = band;
+          this.loadingBands = false;
+        });
+      } catch (error) {
+        runInAction(() => {
+          this.loadingBands = false;
+        });
+      }
+    }
+  };
+
+  getBand = (id: number): IBand => {
+    return this.bandRegistry.get(id);
+  };
 }

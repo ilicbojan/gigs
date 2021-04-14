@@ -30,6 +30,7 @@ export default class GigStore {
       const { gigs } = await agent.Gigs.list();
       runInAction(() => {
         gigs.forEach((gig) => {
+          gig.date = new Date(gig.date);
           this.gigRegistry.set(gig.id, gig);
         });
         this.loadingGigs = false;
@@ -50,6 +51,7 @@ export default class GigStore {
       try {
         gig = await agent.Gigs.details(id);
         runInAction(() => {
+          gig.date = new Date(gig.date);
           this.gigRegistry.set(gig.id, gig);
           this.gig = gig;
           this.loadingGigs = false;
@@ -75,6 +77,24 @@ export default class GigStore {
       });
       history.push('/');
       toast.success('Gig created successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
+
+  updateGig = async (gig: IGig) => {
+    this.submitting = true;
+    try {
+      await agent.Gigs.update(gig);
+      runInAction(() => {
+        this.gigRegistry.delete(gig.id);
+        this.loadGig(gig.id);
+        this.submitting = false;
+      });
+      toast.info('Gig is updated successfully');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import Button from '../../../app/common/button/Button';
+import { getDate, getTime } from '../../../app/common/util/dates';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 import { S } from './GigDetails.style';
@@ -34,8 +35,8 @@ const GigDetails = observer(() => {
       <Button color='primary' onClick={handleBackClick}>
         {'<-'} Back
       </Button>
-      <div>{gig.date}</div>
-      <div>{gig.time}</div>
+      <div>{getDate(gig.date)}</div>
+      <div>{getTime(gig.time)}</div>
       <div>{gig.band.name}</div>
       <div>{gig.band.genre}</div>
       <div>{gig.cafe.name}</div>

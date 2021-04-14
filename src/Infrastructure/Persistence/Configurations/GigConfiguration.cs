@@ -11,12 +11,12 @@ namespace Infrastructure.Persistence.Configurations
             builder.HasOne(g => g.Band)
                 .WithMany(b => b.Gigs)
                 .HasForeignKey(g => g.BandId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(g => g.Cafe)
                 .WithMany(c => c.Gigs)
                 .HasForeignKey(g => g.CafeId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(x => x.Id)
                .IsRequired();

@@ -20,6 +20,7 @@ export const COLOR = {
   primaryLight: '#406461',
   primaryDark: '#203230',
   secondary: '#197278',
+  secondaryLight: '#197278',
   secondaryDark: '#115055',
   danger: '#772E25',
   red: '#C44536',

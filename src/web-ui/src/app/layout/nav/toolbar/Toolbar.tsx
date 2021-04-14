@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { S } from './Toolbar.style';
 import Burger from '../burger/Burger';
 import { observer } from 'mobx-react-lite';
@@ -12,10 +12,6 @@ const Toolbar: React.FC<IProps> = observer(({ burgerClickHandler }) => {
   return (
     <S.Toolbar>
       <S.Navigation>
-        <S.Logo>
-          <Link to='/'>LOGO</Link>
-        </S.Logo>
-        <S.Spacer></S.Spacer>
         <S.Items>
           <ul>
             <li>
@@ -29,6 +25,18 @@ const Toolbar: React.FC<IProps> = observer(({ burgerClickHandler }) => {
             </li>
           </ul>
         </S.Items>
+        <S.Spacer></S.Spacer>
+        <S.Items>
+          <ul>
+            <li>
+              <NavLink to='/login'>Login</NavLink>
+            </li>
+            <li>
+              <NavLink to='/register'>Register</NavLink>
+            </li>
+          </ul>
+        </S.Items>
+
         <S.Burger>
           <Burger click={burgerClickHandler} />
         </S.Burger>

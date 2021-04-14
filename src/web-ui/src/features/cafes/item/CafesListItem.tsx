@@ -17,7 +17,7 @@ const CafesListItem: React.FC<IProps> = observer(({ cafe }) => {
   return (
     <S.CafesListItem>
       <div className='body'>
-        <img src='/images/cafe.jpg' alt='band image' />
+        <img src='/images/cafe.jpg' alt='cafe' />
         <div className='info'>
           <h2>{cafe.name}</h2>
           <div>

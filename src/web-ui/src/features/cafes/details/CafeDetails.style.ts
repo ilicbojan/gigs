@@ -6,6 +6,32 @@ const CafeDetails = styled.div`
 
   @media ${BREAKPOINTS.lg} {
     padding: 20px 0;
+    display: flex;
+
+    img {
+      width: 45%;
+    }
+
+    .info {
+      margin-left: 40px;
+
+      h2 {
+        font-size: 5rem;
+      }
+
+      div {
+        font-size: 2.5rem;
+      }
+
+      .buttons {
+        display: flex;
+      }
+
+      button {
+        margin-right: 20px;
+        margin-top: 15px;
+      }
+    }
   }
 `;
 

@@ -117,6 +117,7 @@ export default class GigStore {
         this.submitting = false;
         this.target = '';
       });
+      history.push('/');
       toast.warning('Gig is deleted successfully');
     } catch (error) {
       runInAction(() => {

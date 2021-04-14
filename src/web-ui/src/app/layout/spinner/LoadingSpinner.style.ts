@@ -18,8 +18,8 @@ const LoadingSpinner = styled.div`
     margin-top: -30px;
     margin-left: -30px;
     border-radius: 50%;
-    border: 4px solid ${COLOR.white};
-    border-top-color: ${COLOR.primary};
+    border: 5px solid ${COLOR.white};
+    border-top-color: ${COLOR.secondary};
     animation: ${spinner} 0.7s linear infinite;
   }
 `;

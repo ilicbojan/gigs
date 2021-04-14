@@ -21,7 +21,7 @@ const List = styled.div`
   @media ${BREAKPOINTS.lg} {
     margin-top: 20px;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 30px;
   }
 `;
 

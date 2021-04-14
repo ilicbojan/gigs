@@ -117,6 +117,7 @@ export default class BandStore {
         this.submitting = false;
         this.target = '';
       });
+      history.push('/bands');
       toast.warning('Band is deleted successfully');
     } catch (error) {
       runInAction(() => {

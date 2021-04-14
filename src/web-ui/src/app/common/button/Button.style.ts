@@ -116,7 +116,7 @@ const Spinner = styled.span`
     margin-top: -1.6rem;
     margin-left: -1.6rem;
     border-radius: 50%;
-    border: 4px solid gray;
+    border: 4px solid white;
     border-top-color: ${COLOR.secondary};
     animation: ${spinner} 0.7s linear infinite;
   }

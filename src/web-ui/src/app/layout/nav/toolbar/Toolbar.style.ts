@@ -75,7 +75,7 @@ const Items = styled.div`
   & a:hover,
   & a:active,
   & button:hover {
-    color: ${COLOR.secondary};
+    color: ${COLOR.grayLight};
   }
 
   & svg {

@@ -21,6 +21,12 @@ const SideDrawer: React.FC<IProps> = observer(({ show, click }) => {
         <li onClick={click}>
           <NavLink to='/cafes'>Cafes</NavLink>
         </li>
+        <li onClick={click}>
+          <NavLink to='/login'>Login</NavLink>
+        </li>
+        <li onClick={click}>
+          <NavLink to='/register'>Register</NavLink>
+        </li>
       </ul>
     </S.SideDrawer>
   );

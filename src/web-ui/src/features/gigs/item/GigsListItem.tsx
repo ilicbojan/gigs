@@ -18,7 +18,7 @@ const GigsListItem: React.FC<IProps> = observer(({ gig }) => {
   return (
     <S.GigsListItem>
       <div className='body'>
-        <img src='/images/gig.jpg' alt='band image' />
+        <img src='/images/gig.jpg' alt='gig' />
         <div className='info'>
           <h2>
             {getDotDate(gig.date)} {getTime(gig.time)}

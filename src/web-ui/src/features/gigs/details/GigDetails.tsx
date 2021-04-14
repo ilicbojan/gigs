@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router';
+import React, { useContext, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import Button from '../../../app/common/button/Button';
-import { getDate, getTime } from '../../../app/common/util/dates';
+import { getDotDate, getTime } from '../../../app/common/util/dates';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 import { S } from './GigDetails.style';
@@ -13,35 +14,49 @@ interface IParams {
 
 const GigDetails = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { loadGig, loadingGigs, gig } = rootStore.gigStore;
+  const {
+    loadGig,
+    loadingGigs,
+    gig,
+    deleteGig,
+    submitting,
+    target,
+  } = rootStore.gigStore;
 
   const { id } = useParams<IParams>();
   const gigId = Number.parseInt(id);
-
-  const history = useHistory();
 
   useEffect(() => {
     loadGig(gigId);
   }, [loadGig, gigId]);
 
-  const handleBackClick = () => {
-    history.goBack();
-  };
-
   if (loadingGigs || !gig) return <LoadingSpinner />;
 
   return (
     <S.GigDetails>
-      <Button color='primary' onClick={handleBackClick}>
-        {'<-'} Back
-      </Button>
-      <div>{getDate(gig.date)}</div>
-      <div>{getTime(gig.time)}</div>
-      <div>{gig.band.name}</div>
-      <div>{gig.band.genre}</div>
-      <div>{gig.cafe.name}</div>
-      <div>{gig.cafe.city}</div>
-      <div>{gig.cafe.address}</div>
+      <img src='/images/gig.jpg' alt='gig' />
+      <div className='info'>
+        <h2>Date: {getDotDate(gig.date)}</h2>
+        <h2>Time: {getTime(gig.time)}</h2>
+        <div>Band: {gig.band.name}</div>
+        <div>Genre: {gig.band.genre}</div>
+        <div>Cafe: {gig.cafe.name}</div>
+        <div>City: {gig.cafe.city}</div>
+        <div>Address: {gig.cafe.address}</div>
+        <div className='buttons'>
+          <Link to={`/gigs/edit/${gig.id}`}>
+            <Button color='primary'>Edit</Button>
+          </Link>
+          <Button
+            title={gig.id + ''}
+            onClick={(e) => deleteGig(gig.id, e)}
+            loading={submitting && gig.id === Number(target)}
+            color='red'
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
     </S.GigDetails>
   );
 });

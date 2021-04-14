@@ -17,7 +17,7 @@ const BandsListItem: React.FC<IProps> = observer(({ band }) => {
   return (
     <S.BandsListItem>
       <div className='body'>
-        <img src='/images/band.png' alt='band image' />
+        <img src='/images/band.png' alt='band' />
         <div className='info'>
           <h2>{band.name}</h2>
           <div>{band.genre}</div>

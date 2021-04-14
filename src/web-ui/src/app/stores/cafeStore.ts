@@ -116,6 +116,7 @@ export default class CafeStore {
         this.submitting = false;
         this.target = '';
       });
+      history.push('/cafes');
       toast.warning('Cafe is deleted successfully');
     } catch (error) {
       runInAction(() => {

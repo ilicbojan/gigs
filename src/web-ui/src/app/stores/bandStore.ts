@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import React from 'react';
 import { toast } from 'react-toastify';
 import { history } from '../..';
 import agent from '../api/agent';
@@ -19,6 +20,7 @@ export default class BandStore {
   loadingBands = false;
   submitting = false;
   error: AxiosResponse | null = null;
+  target = '';
 
   get bands(): IBand[] {
     return Array.from(this.bandRegistry.values());
@@ -97,6 +99,29 @@ export default class BandStore {
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
+
+  deleteBand = async (
+    id: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    this.submitting = true;
+    this.target = e.currentTarget.title;
+    try {
+      await agent.Bands.delete(id);
+      runInAction(() => {
+        this.bandRegistry.delete(id);
+        this.submitting = false;
+        this.target = '';
+      });
+      toast.warning('Band is deleted successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.target = '';
         this.error = error;
       });
     }

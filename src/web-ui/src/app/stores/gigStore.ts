@@ -19,6 +19,7 @@ export default class GigStore {
   loadingGigs = false;
   submitting = false;
   error: AxiosResponse | null = null;
+  target = '';
 
   get gigs(): IGig[] {
     return Array.from(this.gigRegistry.values());
@@ -98,6 +99,29 @@ export default class GigStore {
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
+
+  deleteGig = async (
+    id: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    this.submitting = true;
+    this.target = e.currentTarget.title;
+    try {
+      await agent.Gigs.delete(id);
+      runInAction(() => {
+        this.gigRegistry.delete(id);
+        this.submitting = false;
+        this.target = '';
+      });
+      toast.warning('Gig is deleted successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.target = '';
         this.error = error;
       });
     }

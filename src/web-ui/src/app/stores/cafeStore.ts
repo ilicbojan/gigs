@@ -19,6 +19,7 @@ export default class CafeStore {
   loadingCafes = false;
   submitting = false;
   error: AxiosResponse | null = null;
+  target = '';
 
   get cafes(): ICafe[] {
     return Array.from(this.cafeRegistry.values());
@@ -97,6 +98,29 @@ export default class CafeStore {
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
+
+  deleteCafe = async (
+    id: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    this.submitting = true;
+    this.target = e.currentTarget.title;
+    try {
+      await agent.Cafes.delete(id);
+      runInAction(() => {
+        this.cafeRegistry.delete(id);
+        this.submitting = false;
+        this.target = '';
+      });
+      toast.warning('Cafe is deleted successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.target = '';
         this.error = error;
       });
     }

@@ -15,3 +15,15 @@ export const getDate = (date: Date) => {
 export const getTime = (time: string) => {
   return time.slice(0, -3);
 };
+
+export const getDotDate = (date: Date) => {
+  const dateString =
+    date.getDate() +
+    '.' +
+    (date.getMonth() + 1) +
+    '.' +
+    date.getFullYear() +
+    '.';
+
+  return dateString;
+};

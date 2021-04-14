@@ -45,7 +45,7 @@ const Button = styled.button`
   ${({ color }) =>
     color === 'red' &&
     `
-      background-color: ${COLOR.red};
+      background-color: ${COLOR.danger};
       color: ${COLOR.white};
     `}
 
@@ -66,7 +66,7 @@ const Button = styled.button`
     ${({ color }) =>
       color === 'red' &&
       `
-      background-color: ${COLOR.red};
+      background-color: ${COLOR.danger};
     `}
   }
 
@@ -89,8 +89,8 @@ const Button = styled.button`
     ${({ color }) =>
       color === 'red' &&
       `
-      background-color: ${COLOR.red};
-      color: ${COLOR.red};
+      background-color: ${COLOR.danger};
+      color: ${COLOR.danger};
     `}
   }
 

@@ -13,7 +13,7 @@ const SideDrawer: React.FC<IProps> = observer(({ show, click }) => {
     <S.SideDrawer show={show}>
       <ul>
         <li onClick={click}>
-          <NavLink to='/gigs'>Gigs</NavLink>
+          <NavLink to='/'>Gigs</NavLink>
         </li>
         <li onClick={click}>
           <NavLink to='/bands'>Bands</NavLink>

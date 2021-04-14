@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+import agent from '../api/agent';
 import { IGig } from '../models/gig';
 import { RootStore } from './rootStore';
 
@@ -20,4 +21,21 @@ export default class GigStore {
   get gigs(): IGig[] {
     return Array.from(this.gigRegistry.values());
   }
+
+  loadGigs = async () => {
+    this.loadingGigs = true;
+    try {
+      const { gigs } = await agent.Gigs.list();
+      runInAction(() => {
+        gigs.forEach((gig) => {
+          this.gigRegistry.set(gig.id, gig);
+        });
+        this.loadingGigs = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.loadingGigs = false;
+      });
+    }
+  };
 }

@@ -19,7 +19,7 @@ const Toolbar: React.FC<IProps> = observer(({ burgerClickHandler }) => {
         <S.Items>
           <ul>
             <li>
-              <NavLink to='/gigs'>Gigs</NavLink>
+              <NavLink to='/'>Gigs</NavLink>
             </li>
             <li>
               <NavLink to='/bands'>Bands</NavLink>

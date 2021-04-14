@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../../../app/common/button/Button';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 import BandsListItem from '../item/BandsListItem';
@@ -15,7 +17,12 @@ const BandsList = observer(() => {
 
   return (
     <S.BandsList>
-      <h1>Bands</h1>
+      <div className='heading'>
+        <h1>Bands List</h1>
+        <Link to='/bands/create'>
+          <Button color='primary'>Create new</Button>
+        </Link>
+      </div>
       <S.List>
         {loadingBands ? (
           <LoadingSpinner />

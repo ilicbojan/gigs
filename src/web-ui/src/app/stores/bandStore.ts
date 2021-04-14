@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { makeAutoObservable, runInAction } from 'mobx';
+import { toast } from 'react-toastify';
+import { history } from '../..';
 import agent from '../api/agent';
 import { IBand } from '../models/band';
 import { RootStore } from './rootStore';
@@ -62,5 +64,23 @@ export default class BandStore {
 
   getBand = (id: number): IBand => {
     return this.bandRegistry.get(id);
+  };
+
+  createBand = async (band: IBand) => {
+    this.submitting = true;
+    try {
+      band.id = await agent.Bands.create(band);
+      runInAction(() => {
+        this.bandRegistry.set(band.id, band);
+        this.submitting = false;
+      });
+      history.push('/bands');
+      toast.success('Band created successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
   };
 }

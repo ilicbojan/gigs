@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+import agent from '../api/agent';
 import { IBand } from '../models/band';
 import { RootStore } from './rootStore';
 
@@ -20,4 +21,21 @@ export default class BandStore {
   get bands(): IBand[] {
     return Array.from(this.bandRegistry.values());
   }
+
+  loadBands = async () => {
+    this.loadingBands = true;
+    try {
+      const { bands } = await agent.Bands.list();
+      runInAction(() => {
+        bands.forEach((band) => {
+          this.bandRegistry.set(band.id, band);
+        });
+        this.loadingBands = false;
+      });
+    } catch (error) {
+      runInAction(() => {
+        this.loadingBands = false;
+      });
+    }
+  };
 }

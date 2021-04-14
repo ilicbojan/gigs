@@ -5,6 +5,7 @@ import { RootStoreContext } from '../stores/rootStore';
 import { ToastContainer } from 'react-toastify';
 import Nav from './nav/navigation/Nav';
 import GigsList from '../../features/gigs/list/GigsList';
+import GigDetails from '../../features/gigs/details/GigDetails';
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -30,7 +31,9 @@ const App = observer(() => {
           path={'/(.+)'}
           render={() => (
             <>
-              <Switch></Switch>
+              <Switch>
+                <Route exact path='/gigs/:id' component={GigDetails} />
+              </Switch>
             </>
           )}
         />

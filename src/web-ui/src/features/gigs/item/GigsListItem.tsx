@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Button from '../../../app/common/button/Button';
 import { IGig } from '../../../app/models/gig';
 import { S } from './GigsListItem.style';
 
@@ -17,6 +19,9 @@ const GigsListItem: React.FC<IProps> = observer(({ gig }) => {
       <div>{gig.cafe.name}</div>
       <div>{gig.cafe.city}</div>
       <div>{gig.cafe.address}</div>
+      <Link to={`/gigs/${gig.id}`}>
+        <Button color='secondary'>View</Button>
+      </Link>
     </S.GigsListItem>
   );
 });

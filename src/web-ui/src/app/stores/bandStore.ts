@@ -83,4 +83,23 @@ export default class BandStore {
       });
     }
   };
+
+  updateBand = async (band: IBand) => {
+    this.submitting = true;
+    try {
+      band.id = this.band?.id!;
+      await agent.Bands.update(band);
+      runInAction(() => {
+        this.bandRegistry.set(band.id, band);
+        this.band = band;
+        this.submitting = false;
+      });
+      toast.info('Band is updated successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
 }

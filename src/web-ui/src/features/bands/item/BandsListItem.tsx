@@ -17,6 +17,9 @@ const BandsListItem: React.FC<IProps> = observer(({ band }) => {
       <Link to={`/bands/${band.id}`}>
         <Button color='secondary'>View</Button>
       </Link>
+      <Link to={`/bands/edit/${band.id}`}>
+        <Button color='primary'>Edit</Button>
+      </Link>
     </S.BandsListItem>
   );
 });

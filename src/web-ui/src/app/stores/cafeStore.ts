@@ -38,4 +38,29 @@ export default class CafeStore {
       });
     }
   };
+
+  loadCafe = async (id: number) => {
+    let cafe = this.getCafe(id);
+    if (cafe) {
+      this.cafe = cafe;
+    } else {
+      this.loadingCafes = true;
+      try {
+        cafe = await agent.Cafes.details(id);
+        runInAction(() => {
+          this.cafeRegistry.set(cafe.id, cafe);
+          this.cafe = cafe;
+          this.loadingCafes = false;
+        });
+      } catch (error) {
+        runInAction(() => {
+          this.loadingCafes = false;
+        });
+      }
+    }
+  };
+
+  getCafe = (id: number): ICafe => {
+    return this.cafeRegistry.get(id);
+  };
 }

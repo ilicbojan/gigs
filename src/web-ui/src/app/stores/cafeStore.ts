@@ -83,4 +83,22 @@ export default class CafeStore {
       });
     }
   };
+
+  updateCafe = async (cafe: ICafe) => {
+    this.submitting = true;
+    try {
+      await agent.Cafes.update(cafe);
+      runInAction(() => {
+        this.cafeRegistry.set(cafe.id, cafe);
+        this.cafe = cafe;
+        this.submitting = false;
+      });
+      toast.info('Cafe is updated successfully');
+    } catch (error) {
+      runInAction(() => {
+        this.submitting = false;
+        this.error = error;
+      });
+    }
+  };
 }

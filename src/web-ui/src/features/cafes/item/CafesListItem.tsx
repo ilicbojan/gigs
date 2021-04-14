@@ -18,6 +18,9 @@ const CafesListItem: React.FC<IProps> = observer(({ cafe }) => {
       <Link to={`/cafes/${cafe.id}`}>
         <Button color='secondary'>View</Button>
       </Link>
+      <Link to={`/cafes/edit/${cafe.id}`}>
+        <Button color='primary'>Edit</Button>
+      </Link>
     </S.CafesListItem>
   );
 });

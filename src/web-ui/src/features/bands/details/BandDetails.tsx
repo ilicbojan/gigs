@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Button from '../../../app/common/button/Button';
+import NotFound from '../../../app/layout/not-found/NotFound';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 import { S } from './BandDetails.style';
@@ -30,7 +31,8 @@ const BandDetails = observer(() => {
     loadBand(bandId);
   }, [loadBand, bandId]);
 
-  if (loadingBands || !band) return <LoadingSpinner />;
+  if (loadingBands) return <LoadingSpinner />;
+  else if (!band) return <NotFound />;
 
   return (
     <S.BandDetails>

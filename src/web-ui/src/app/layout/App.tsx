@@ -20,6 +20,7 @@ import Login from '../../features/users/login/Login';
 import Register from '../../features/users/register/Register';
 import LoadingSpinner from './spinner/LoadingSpinner';
 import PrivateRoute from './PrivateRoute';
+import NotFound from './not-found/NotFound';
 
 const App = observer(() => {
   const rootStore = useContext(RootStoreContext);
@@ -79,6 +80,8 @@ const App = observer(() => {
 
                 <Route exact path='/login' component={Login} />
                 <Route exact path='/register' component={Register} />
+
+                <Route component={NotFound} />
               </Switch>
             </>
           )}

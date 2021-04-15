@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import Button from '../../../app/common/button/Button';
 import { getDotDate, getTime } from '../../../app/common/util/dates';
+import NotFound from '../../../app/layout/not-found/NotFound';
 import LoadingSpinner from '../../../app/layout/spinner/LoadingSpinner';
 import { RootStoreContext } from '../../../app/stores/rootStore';
 import { S } from './GigDetails.style';
@@ -31,7 +32,8 @@ const GigDetails = observer(() => {
     loadGig(gigId);
   }, [loadGig, gigId]);
 
-  if (loadingGigs || !gig) return <LoadingSpinner />;
+  if (loadingGigs) return <LoadingSpinner />;
+  else if (!gig) return <NotFound />;
 
   return (
     <S.GigDetails>

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import Button from '../../../app/common/button/Button';
 import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
@@ -11,7 +11,11 @@ import { S } from './BandCreate.style';
 
 const BandCreate = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { createBand, error } = rootStore.bandStore;
+  const { createBand, error, clearError } = rootStore.bandStore;
+
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   return (
     <S.BandCreate>

@@ -14,12 +14,13 @@ const GigCreate = observer(() => {
   const rootStore = useContext(RootStoreContext);
   const { loadBands, loadingBands, bands } = rootStore.bandStore;
   const { loadCafes, loadingCafes, cafes } = rootStore.cafeStore;
-  const { createGig, error } = rootStore.gigStore;
+  const { createGig, error, clearError } = rootStore.gigStore;
 
   useEffect(() => {
     loadBands();
     loadCafes();
-  }, [loadBands, loadCafes]);
+    clearError();
+  }, [loadBands, loadCafes, clearError]);
 
   return (
     <S.GigCreate>

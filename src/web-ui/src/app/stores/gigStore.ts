@@ -127,4 +127,8 @@ export default class GigStore {
       });
     }
   };
+
+  clearError = () => {
+    this.error = null;
+  };
 }

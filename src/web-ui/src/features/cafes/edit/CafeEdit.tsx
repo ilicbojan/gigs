@@ -23,6 +23,7 @@ const CafeEdit = observer(() => {
     updateCafe,
     cafe,
     error,
+    clearError,
   } = rootStore.cafeStore;
 
   const { id } = useParams<IParams>();
@@ -30,7 +31,8 @@ const CafeEdit = observer(() => {
 
   useEffect(() => {
     loadCafe(cafeId);
-  }, [loadCafe, cafeId]);
+    clearError();
+  }, [loadCafe, cafeId, clearError]);
 
   if (loadingCafes || !cafe) return <LoadingSpinner />;
 

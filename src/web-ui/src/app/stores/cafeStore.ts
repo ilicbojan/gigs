@@ -128,4 +128,8 @@ export default class CafeStore {
       });
     }
   };
+
+  clearError = () => {
+    this.error = null;
+  };
 }

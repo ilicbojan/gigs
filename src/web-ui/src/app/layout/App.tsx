@@ -32,7 +32,7 @@ const App = observer(() => {
     } else {
       setAppLoaded();
     }
-  }, [token, setAppLoaded]);
+  }, [token, currentUser, setAppLoaded]);
 
   if (!appLoaded) return <LoadingSpinner />;
 

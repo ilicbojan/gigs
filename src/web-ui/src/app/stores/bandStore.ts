@@ -129,4 +129,8 @@ export default class BandStore {
       });
     }
   };
+
+  clearError = () => {
+    this.error = null;
+  };
 }

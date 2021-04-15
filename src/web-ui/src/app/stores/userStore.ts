@@ -39,7 +39,6 @@ export default class UserStore {
         this.submitting = false;
         this.error = error;
       });
-      console.log(error);
     }
   };
 
@@ -63,7 +62,6 @@ export default class UserStore {
         this.submitting = false;
         this.error = error;
       });
-      console.log(error);
     }
   };
 
@@ -77,7 +75,6 @@ export default class UserStore {
       runInAction(() => {
         this.error = error;
       });
-      console.log(error);
     }
   };
 
@@ -86,5 +83,9 @@ export default class UserStore {
     this.user = null;
     toast.info('You are logged out');
     history.push('/');
+  };
+
+  clearError = () => {
+    this.error = null;
   };
 }

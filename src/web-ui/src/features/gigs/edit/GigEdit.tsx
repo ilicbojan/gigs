@@ -21,7 +21,14 @@ const GigEdit = observer(() => {
   const rootStore = useContext(RootStoreContext);
   const { loadBands, loadingBands, bands } = rootStore.bandStore;
   const { loadCafes, loadingCafes, cafes } = rootStore.cafeStore;
-  const { loadGig, loadingGigs, updateGig, gig, error } = rootStore.gigStore;
+  const {
+    loadGig,
+    loadingGigs,
+    updateGig,
+    gig,
+    error,
+    clearError,
+  } = rootStore.gigStore;
 
   const { id } = useParams<IParams>();
   const gigId = Number.parseInt(id);
@@ -30,7 +37,8 @@ const GigEdit = observer(() => {
     loadGig(gigId);
     loadBands();
     loadCafes();
-  }, [loadGig, gigId, loadBands, loadCafes]);
+    clearError();
+  }, [loadGig, gigId, loadBands, loadCafes, clearError]);
 
   if (loadingGigs || !gig) return <LoadingSpinner />;
 

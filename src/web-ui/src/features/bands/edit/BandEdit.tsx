@@ -23,6 +23,7 @@ const BandEdit = observer(() => {
     updateBand,
     band,
     error,
+    clearError,
   } = rootStore.bandStore;
 
   const { id } = useParams<IParams>();
@@ -30,7 +31,8 @@ const BandEdit = observer(() => {
 
   useEffect(() => {
     loadBand(bandId);
-  }, [loadBand, bandId]);
+    clearError();
+  }, [loadBand, bandId, clearError]);
 
   if (loadingBands || !band) return <LoadingSpinner />;
 

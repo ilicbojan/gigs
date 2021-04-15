@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import Button from '../../../app/common/button/Button';
 import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
@@ -11,7 +11,11 @@ import { S } from './Register.style';
 
 const Register = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { register, error } = rootStore.userStore;
+  const { register, error, clearError } = rootStore.userStore;
+
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   return (
     <S.Register>

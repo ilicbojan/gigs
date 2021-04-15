@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Field, Form } from 'react-final-form';
 import Button from '../../../app/common/button/Button';
 import ErrorMessage from '../../../app/common/form/error/ErrorMessage';
@@ -11,7 +11,11 @@ import { S } from './CafeCreate.style';
 
 const CafeCreate = observer(() => {
   const rootStore = useContext(RootStoreContext);
-  const { createCafe, error } = rootStore.cafeStore;
+  const { createCafe, error, clearError } = rootStore.cafeStore;
+
+  useEffect(() => {
+    clearError();
+  }, [clearError]);
 
   return (
     <S.CafeCreate>

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace Application.Gigs.Commands.UpdateGig
             _context = context;
 
             RuleFor(x => x.Date)
-                .NotEmpty().WithMessage("Date is required");
+                .NotEmpty().WithMessage("Date is required")
+                .Must(DateGreaterThanToday).WithMessage("Date must be greater than today");
 
             RuleFor(x => x.Time)
                 .NotEmpty().WithMessage("Time is required");
@@ -27,6 +29,11 @@ namespace Application.Gigs.Commands.UpdateGig
             RuleFor(x => x.CafeId)
                 .NotEmpty().WithMessage("Cafe is required")
                 .MustAsync(CafeExists).WithMessage("Cafe does not exist");
+        }
+
+        public bool DateGreaterThanToday(UpdateGigCommand command, string date)
+        {
+            return DateTime.Parse(date) > DateTime.Today;
         }
 
         public async Task<bool> BandExists(UpdateGigCommand command, int id, CancellationToken cancellationToken)

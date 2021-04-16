@@ -31,6 +31,7 @@ export default class BandStore {
     try {
       const { bands } = await agent.Bands.list();
       runInAction(() => {
+        this.bandRegistry.clear();
         bands.forEach((band) => {
           this.bandRegistry.set(band.id, band);
         });
@@ -77,7 +78,7 @@ export default class BandStore {
         this.submitting = false;
       });
       history.push('/bands');
-      toast.success('Band created successfully');
+      toast.success('Band was successfully created');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -95,7 +96,7 @@ export default class BandStore {
         this.band = band;
         this.submitting = false;
       });
-      toast.info('Band is updated successfully');
+      toast.info('Band was successfully updated');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -114,13 +115,12 @@ export default class BandStore {
       await agent.Bands.delete(id);
       runInAction(() => {
         this.bandRegistry.delete(id);
-        this.rootStore.gigStore.gigRegistry.clear();
         this.rootStore.gigStore.loadGigs();
         this.submitting = false;
         this.target = '';
       });
       history.push('/bands');
-      toast.warning('Band is deleted successfully');
+      toast.warning('Band was successfully deleted');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;

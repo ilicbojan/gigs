@@ -31,17 +31,17 @@ namespace Application.Gigs.Commands.UpdateGig
                 .MustAsync(CafeExists).WithMessage("Cafe does not exist");
         }
 
-        public bool DateGreaterThanToday(UpdateGigCommand command, string date)
+        public bool DateGreaterThanToday(string date)
         {
             return DateTime.Parse(date) > DateTime.Today;
         }
 
-        public async Task<bool> BandExists(UpdateGigCommand command, int id, CancellationToken cancellationToken)
+        public async Task<bool> BandExists(int id, CancellationToken cancellationToken)
         {
             return await _context.Bands.AnyAsync(x => x.Id == id);
         }
 
-        public async Task<bool> CafeExists(UpdateGigCommand command, int id, CancellationToken cancellationToken)
+        public async Task<bool> CafeExists(int id, CancellationToken cancellationToken)
         {
             return await _context.Cafes.AnyAsync(x => x.Id == id);
         }

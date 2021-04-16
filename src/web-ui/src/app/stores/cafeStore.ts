@@ -30,6 +30,7 @@ export default class CafeStore {
     try {
       const { cafes } = await agent.Cafes.list();
       runInAction(() => {
+        this.cafeRegistry.clear();
         cafes.forEach((cafe) => {
           this.cafeRegistry.set(cafe.id, cafe);
         });
@@ -76,7 +77,7 @@ export default class CafeStore {
         this.submitting = false;
       });
       history.push('/cafes');
-      toast.success('Cafe created successfully');
+      toast.success('Cafe was successfully created');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -94,7 +95,7 @@ export default class CafeStore {
         this.cafe = cafe;
         this.submitting = false;
       });
-      toast.info('Cafe is updated successfully');
+      toast.info('Cafe was successfully updated');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;
@@ -113,13 +114,12 @@ export default class CafeStore {
       await agent.Cafes.delete(id);
       runInAction(() => {
         this.cafeRegistry.delete(id);
-        this.rootStore.gigStore.gigRegistry.clear();
         this.rootStore.gigStore.loadGigs();
         this.submitting = false;
         this.target = '';
       });
       history.push('/cafes');
-      toast.warning('Cafe is deleted successfully');
+      toast.warning('Cafe was successfully deleted');
     } catch (error) {
       runInAction(() => {
         this.submitting = false;

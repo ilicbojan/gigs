@@ -37,8 +37,6 @@ namespace Infrastructure
             services.AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>());
             services.AddScoped<IJwtGenerator, JwtGenerator>();
 
-            services.AddTransient<IIdentityService, IdentityService>();
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

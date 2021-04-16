@@ -93,10 +93,6 @@ const Button = styled.button`
       color: ${COLOR.danger};
     `}
   }
-
-  & svg {
-    margin-right: 6px;
-  }
 `;
 
 const spinner = keyframes`

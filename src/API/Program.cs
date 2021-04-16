@@ -27,10 +27,9 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    // migration starting on dotnet run, no need for update-database in cli
+                    // Migration starting on dotnet run, no need for update-database in cli
                     context.Database.Migrate();
 
-                    // seed database on dotnet run
                     await AppDbContextSeed.SeedAsync(context, userManager, roleManager);
                 }
                 catch (Exception ex)

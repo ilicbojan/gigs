@@ -102,7 +102,7 @@ namespace Infrastructure.Persistence
 
 
                         date = date.AddDays(1);
-                        time = time + TimeSpan.FromMinutes(30);
+                        time += TimeSpan.FromMinutes(30);
                     }
                 }
 

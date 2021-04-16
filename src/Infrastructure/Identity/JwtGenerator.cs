@@ -17,6 +17,7 @@ namespace Infrastructure.Identity
     {
         private readonly SymmetricSecurityKey _key;
         private readonly UserManager<AppUser> _userManager;
+
         public JwtGenerator(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _userManager = userManager;

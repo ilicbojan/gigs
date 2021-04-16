@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,19 +39,25 @@ namespace Application.Bands.Commands.UpdateBand
                 .MustAsync(BeUniquePhone).WithMessage("Selected phone number already exists");
         }
 
-        public async Task<bool> BeUniqueName(string name, CancellationToken cancellationToken)
+        public async Task<bool> BeUniqueName(UpdateBandCommand command, string name, CancellationToken cancellationToken)
         {
-            return await _context.Bands.AllAsync(x => x.Name != name);
+            return await _context.Bands
+                .Where(x => x.Id != command.Id)
+                .AllAsync(x => x.Name != name);
         }
 
-        public async Task<bool> BeUniqueEmail(string email, CancellationToken cancellationToken)
+        public async Task<bool> BeUniqueEmail(UpdateBandCommand command, string email, CancellationToken cancellationToken)
         {
-            return await _context.Bands.AllAsync(x => x.Email != email);
+            return await _context.Bands
+                .Where(x => x.Id != command.Id)
+                .AllAsync(x => x.Email != email);
         }
 
-        public async Task<bool> BeUniquePhone(string phone, CancellationToken cancellationToken)
+        public async Task<bool> BeUniquePhone(UpdateBandCommand command, string phone, CancellationToken cancellationToken)
         {
-            return await _context.Bands.AllAsync(x => x.Phone != phone);
+            return await _context.Bands
+                .Where(x => x.Id != command.Id)
+                .AllAsync(x => x.Phone != phone);
         }
     }
 }
